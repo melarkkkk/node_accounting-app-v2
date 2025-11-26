@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
   const user = users.find((u) => u.id === userId);
 
   if (!userId || !spentAt || !title || !amount || !category || !user) {
-    res.status(400).json({ error: 'Bad request' });
+    return res.status(400).json({ error: 'Bad request' });
   }
 
   const expense = { ...data, id: getNextExpenseId() };
@@ -47,7 +47,7 @@ router.get('/:id', (req, res) => {
   const expense = expenses.find((u) => u.id === id);
 
   if (!expense) {
-    res.status(404).json({ error: 'Not found' });
+    return res.status(404).json({ error: 'Not found' });
   }
 
   res.status(200).json(expense);
@@ -58,7 +58,7 @@ router.delete('/:id', (req, res) => {
   const idx = expenses.findIndex((e) => e.id === id);
 
   if (idx === -1) {
-    res.status(404).json({ error: 'Not found' });
+    return res.status(404).json({ error: 'Not found' });
   }
 
   expenses.splice(idx, 1);

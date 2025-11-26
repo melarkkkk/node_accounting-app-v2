@@ -11,7 +11,7 @@ router.post('/', (req, res) => {
   const { name } = req.body;
 
   if (!name) {
-    res.status(400).json({ error: 'Bad request' });
+    return res.status(400).json({ error: 'Bad request' });
   }
 
   const user = { name, id: getNextUserId() };
@@ -26,7 +26,7 @@ router.get('/:id', (req, res) => {
   const user = users.find((u) => u.id === id);
 
   if (!user) {
-    res.status(404).json({ error: 'Not found' });
+    return res.status(404).json({ error: 'Not found' });
   }
 
   res.status(200).json(user);
@@ -37,7 +37,7 @@ router.delete('/:id', (req, res) => {
   const idx = users.findIndex((u) => u.id === id);
 
   if (idx === -1) {
-    res.status(404).json({ error: 'Not found' });
+    return res.status(404).json({ error: 'Not found' });
   }
 
   users.splice(idx, 1);
@@ -51,11 +51,11 @@ router.patch('/:id', (req, res) => {
   const user = users.find((u) => u.id === id);
 
   if (!user) {
-    res.status(404).json({ error: 'Not found' });
+    return res.status(404).json({ error: 'Not found' });
   }
 
   if (!name) {
-    res.status(400).json({ error: 'Bad request' });
+    return res.status(400).json({ error: 'Bad request' });
   }
 
   user.name = name;
