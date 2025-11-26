@@ -31,8 +31,12 @@ router.post('/', (req, res) => {
   const { userId, spentAt, title, amount, category } = data;
   const user = users.find((u) => u.id === userId);
 
-  if (!userId || !spentAt || !title || !amount || !category || !user) {
+  if (!spentAt || !title || !amount || !category || !userId) {
     return res.status(400).json({ error: 'Bad request' });
+  }
+
+  if (!user) {
+    return res.status(404).json({error: 'Not found'})
   }
 
   const expense = { ...data, id: getNextExpenseId() };
